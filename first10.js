@@ -1,5 +1,12 @@
 let startTime = Date.now()
 
+//prime helper function
+const isPrime = num => {
+    for(let i = 2; i <= Math.sqrt(num); i++)
+        if(num % i === 0) return false; 
+    return num !== 1 && num !== 0;
+}
+
 //--------------------------------------------------------------------------------
 // Problem 1
 // If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
@@ -89,11 +96,7 @@ console.log("6: " + diff)
 // By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
 // What is the 10 001st prime number?
 
-const isPrime = num => {
-    for (let i = 2; i < (num / 2) + 1; i++)
-        if (num % i === 0) return false;
-    return num !== 1 && num !== 0;
-}
+
 n = 2
 for (let i = 0; i < 10001; ++n) {
     if (isPrime(n))
@@ -130,21 +133,68 @@ longnumber += "05886116467109405077541002256983155200055935729725"
 longnumber += "71636269561882670428252483600823257530420752963450"
 let start = 0,
     end = 13
-res =  0
+res = 0
+sum = 1
+
 while (end <= longnumber.length - 1) {
     let sub = longnumber.substr(start, end)
-    let prod = sub.split("").map(x => parseInt(x)).reduce((a, b) =>  a *b)
-    if (res < prod){
+    let prod = sub.split("").map(x => parseInt(x)).reduce((a, b) => a * b)
+    if (res < prod) {
         res = prod
-        console.log(prod,sub)
     }
     start++
     end++
 
 }
-console.log(res)
-//overflow-cutoff...
-//1045051951180006400000
+console.log("8: " + res)
+//WORKS IN JAVA:
+
+//        int start =0,end=13;
+//        BigInteger largest = new BigInteger("0");
+
+//        while(end<longnumber.length()){
+//            BigInteger sum = new BigInteger("1");
+//            String[] s = longnumber.substring(start,end).split("");
+//            for(String p : s){
+//                BigInteger g = new BigInteger(p);
+//                sum = sum.multiply(g);
+//            }
+//            start++;
+//            end++;
+//
+//            if(largest.compareTo(sum)!=1) {
+//                largest = sum;
+//            }
+//        }
+//        System.out.println(largest);
+
+
+//--------------------------------------------------------------------------------
+// Problem 9
+//A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,
+//          a^2 + b^2 = c^2
+//For example, 3^2 + 4^2 = 9 + 16 = 25 = 5^2.
+//There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+//Find the product abc.
+let total = 1000
+for (let a = 1; a < total / 3; a++) {
+    for (let b = a + 1; b < total / 2; b++) {
+        let c = total - a - b;
+        if ((a * a + b * b) == c * c)
+            console.log("9: " + (a * b * c))
+
+    }
+}
+//--------------------------------------------------------------------------------
+// Problem 10
+//The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+//Find the sum of all the primes below two million.
+sum =0
+for(let i = 1;i<2000000;i++){
+    if(isPrime(i)) sum+=i
+}
+console.log("10: " + sum)
+
 //--------------------------------------------------------------------------------
 //time calculation
 let epoch = Date.now() - startTime
