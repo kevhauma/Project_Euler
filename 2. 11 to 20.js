@@ -167,11 +167,29 @@ for (let i = 500001; i < 1000000; i += 2) {
         }
 }
 console.log("14: " + largest.i)
-
-
-
-
 //--------------------------------------------------------------------------------
+// Problem 15
+// Starting in the top left corner of a 2×2 grid, and only being able to move to the right and down, 
+// there are exactly 6 routes to the bottom right corner.
+// How many such routes are there through a 20×20 grid?
+
+//bad method
+size = 20
+let count = 0
+let maxNumber = Math.pow(2, size * 2) - 1
+let low = Math.floor(maxNumber / Math.pow(2, size)) // 1048575 (0000000000000000000011111111111111111111)
+let high = maxNumber - low // 1099510579200    (1111111111111111111100000000000000000000)
+for (let i = low; i <= high; i++) {
+    let binString = i.toString(2)
+    while (binString.length < size * 2) {
+        binString = "0" + binString
+    }
+    if (binString.split("").filter(x => x === "1").length == size) {
+        count++
+    }
+}
+console.log(count)
+//}//--------------------------------------------------------------------------------
 //time calculation
 let epoch = Date.now() - startTime
 console.log("epoch: " + epoch / 1000 + "s")
